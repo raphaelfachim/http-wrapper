@@ -6,7 +6,7 @@ export function httpGet(url: HttpURL, req: HttpRequest, callback: Function){
 
     const options = {
         ...url,
-        ...req
+        headers: req.headers
     }
 
     http.request(options, (res) => {
@@ -21,4 +21,29 @@ export function httpGet(url: HttpURL, req: HttpRequest, callback: Function){
         })
 
     }).end();
+}
+
+export function httpPost(url: HttpURL, req: HttpRequest, callback: Function){
+
+    const options = {
+        ...url,
+        headers: req.headers,
+        method: "POST",
+    }
+
+    var httpReq = http.request(options, (res) => {
+        var str = '';
+
+        res.on("data", (chunk) => {
+            str += chunk;
+        })
+
+        res.on("end", () => {
+            callback(JSON.parse(str));
+        })
+
+    });
+
+    httpReq.write(JSON.stringify(req.body));
+    httpReq.end();
 }
