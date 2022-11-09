@@ -2,7 +2,7 @@ import http from "http"
 import { HttpRequest } from "../dto/http-request"
 import { HttpURL } from "../dto/http-url"
 
-export function httpGet(url: HttpURL, req: HttpRequest){
+export function httpGet(url: HttpURL, req: HttpRequest, callback: Function){
 
     const options = {
         ...url,
@@ -17,7 +17,7 @@ export function httpGet(url: HttpURL, req: HttpRequest){
         })
 
         res.on("end", () => {
-            console.log(JSON.parse(str));
+            callback(JSON.parse(str));
         })
 
     }).end();

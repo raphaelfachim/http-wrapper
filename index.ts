@@ -5,7 +5,7 @@ import { PONTOMAIS_TOKEN } from "./src/secrets";
 
 const url: HttpURL = {
     host: "api.pontomais.com.br",
-    path: "/external_api/v1/employees?active=true&attributes=id,first_name,last_name,email,user,login&count=true&page=1&per_page=40&sort_direction=asc&sort_property=first_name"
+    path: "/external_api/v1/employees?active=true&attributes=id,first_name,last_name,email,user,login&count=true&page=1&per_page=3&sort_direction=asc&sort_property=first_name"
 }
 
 const req: HttpRequest = {
@@ -15,4 +15,6 @@ const req: HttpRequest = {
     }
 }
 
-httpGet(url, req);
+httpGet(url, req, (res: any) => {
+    console.log(res);
+});
